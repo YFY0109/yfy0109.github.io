@@ -72,8 +72,8 @@ def convert_links():
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
 
-            # 将主站域名替换为备用（GitHub Pages）域名：主站 yfy0109.top -> 备用 yfy0109.github.io
-            new_content = content.replace('yfy0109.top', 'yfy0109.github.io')
+            # 从主站HTML来（去备用站），所以将修改后的是去主站
+            new_content = content.replace('yfy0109.github.io', 'yfy0109.top')
             # 反向替换链接文本（因为源为主站，目标为备用站）
             # 将源中表示“备用站/备用站点”的文案改为“主站/主站点”，以保持在备用站上指向主站的文本语义一致
             new_content = new_content.replace('访问备用站', '访问主站')
