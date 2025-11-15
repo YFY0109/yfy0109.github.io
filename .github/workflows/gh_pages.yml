@@ -1,0 +1,73 @@
+name: 更改URL并发布到Github Pages
+
+on: 
+    push:
+        branches:
+            - main
+
+
+
+jobs:
+    create-branch:
+        name: 创建分支
+        runs-on: ubuntu-latest
+        outputs:
+            branch_exists: ${{ steps.check_branch.outputs.exists }}
+        steps:
+            - name: 签出main分支
+              uses: actions/checkout@v4
+              with: 
+                fetch-depth: 0
+            
+            - name: 检查gh-pages分支是否存在
+              id: check_branch
+              run: |
+                    if git ls-remote --heads origin gh-pages | grep gh-pages; then
+                        echo "exists=true" >> $GITHUB_OUTPUT
+                    else
+                        echo "exists=false" >> $GITHUB_OUTPUT
+                    fi
+                
+    modify-file-and-deploy:
+        name: 修改文件，并同步到Github Pages
+        needs: create-branch
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps: 
+            - name: 签出main分支
+              uses: actions/chechout@v4
+
+            - name: 设置Python
+              uses: actions/setup-python@v4
+              with: 
+                python-version: 3.x
+            
+            - name: 安装依赖
+              run: |
+                    python -m pip install --upgrade pip
+                    pip install beautifulsoup4 lxml
+            
+            - name: 为Github Pages修改文件
+              run: python .github/scripts/convert.py
+
+            - name: 列出修改的文件
+              run: |
+                    git status
+                    echo "=== Modified files ==="
+                    git diff --name-only || true
+            
+            - name: 作为附件上传更改的文件
+              uses: actions/upload-artifact@v4
+              with:
+                name: modified-files
+                path: .
+                retention-days: 1
+
+            - name: 设置Pages
+              uses: actions/configure-pages@v4
+
+            - name: 部署到Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
