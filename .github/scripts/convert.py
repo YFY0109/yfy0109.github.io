@@ -26,11 +26,15 @@ def convert_links():
         shutil.rmtree(out_root)
     out_root.mkdir(parents=True, exist_ok=True)
 
-    # 要跳过的目录
-    skip_dirs = {'.git', '.github', '__pycache__'}
+    # 要跳过的目录（包括输出目录本身，防止将 public 复制到 public/public）
+    skip_dirs = {'.git', '.github', '__pycache__', out_root.name}
 
     # 复制文件
     for root, dirs, files in os.walk(src_root):
+        # 防止 os.walk 进入输出目录（topdown=True 时可以修改 dirs 来阻止向下遍历）
+        if out_root.name in dirs:
+            dirs.remove(out_root.name)
+
         rel_root = Path(root).relative_to(src_root)
 
         # 跳过隐藏或特殊目录
