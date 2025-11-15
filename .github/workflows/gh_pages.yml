@@ -37,7 +37,7 @@ jobs:
             url: ${{ steps.deployment.outputs.page_url }}
         steps: 
             - name: 签出main分支
-              uses: actions/chechout@v4
+              uses: actions/checkout@v4
 
             - name: 设置Python
               uses: actions/setup-python@v4
