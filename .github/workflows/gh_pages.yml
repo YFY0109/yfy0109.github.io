@@ -62,7 +62,7 @@ jobs:
                     git diff --name-only || true
             
             - name: 生成并上传 Pages artifact
-              uses: actions/upload-pages-artifact@v1
+              uses: actions/upload-pages-artifact@v4
               with:
                 path: public
 
