@@ -4,8 +4,8 @@ const HITOKOTO_TYPE = ["a"] // 支持多个类型，例如 ["a", "b", "c"]
 const ENABLE_FROM = false // 控制是否显示来源(from)和作者(from_who)
 
 console.log("当前使用的API端点为：" + API_NODE)
-console.log("当前选择的类型为" + HITOKOTO_TYPE.map(item => TYPE_MAPPING[item] + "(" + item + ")").join("、"));
-console.log("当前是否显示来源：" + ENABLE_FROM ? "是" : "否")
+console.log("当前选择的类型为：" + HITOKOTO_TYPE.map(item => TYPE_MAPPING[item] + "(" + item + ")").join("、"));
+console.log("当前是否显示来源：" + (ENABLE_FROM ? "是" : "否"))
 
 parcelRequire = (function (e, r, t, n) {
   var i,
