@@ -1,6 +1,6 @@
 const API_NODE = "https://hitokoto.mayx.eu.org/"
 const TYPE_MAPPING = {"a":"动画","b":"漫画","c":"游戏","d":"文学","e":"原创","f":"来自网络","g":"其他","h":"影视","i":"诗词","j":"网易云","k":"哲学","l":"抖机灵"}
-const HITOKOTO_TYPE = ["a"] // 支持多个类型，例如 ["a", "b", "c"]
+const HITOKOTO_TYPE = ["a","b","c","d","e","f","g","h","i","j","k","l"] // 支持多个类型，例如 ["a", "b", "c"]
 const ENABLE_FROM = false // 控制是否显示来源(from)和作者(from_who)
 
 console.log("当前使用的API端点为：" + API_NODE)
