@@ -1,3 +1,7 @@
+const API_NODE = "https://hitokoto.mayx.eu.org/"
+const HITOKOTO_TYPE = "a"
+//a->动画;b->漫画;c->游戏;d->文学;e->原创;f->来自网络;g->其他;h->影视;i->诗词;j->网易云;k->哲学;l->抖机灵
+
 parcelRequire = (function (e, r, t, n) {
   var i,
     o = "function" == typeof parcelRequire && parcelRequire,
@@ -1867,7 +1871,7 @@ parcelRequire = (function (e, r, t, n) {
 
         function change_slogan() {
           const xhr = new XMLHttpRequest();
-          const url = "https://v1.hitokoto.cn/?c=i&encode=json";
+          const url = API_NODE+"?encode=json&c="+HITOKOTO_TYPE;
           xhr.open("GET", url, false);
           xhr.send();
           if (xhr.status != 200) {
