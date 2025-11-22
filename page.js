@@ -1874,14 +1874,11 @@ parcelRequire = (function (e, r, t, n) {
           const xhr = new XMLHttpRequest();
           // 动态构造URL，支持多个c参数
           let url = API_NODE + "?encode=json";
-          if (Array.isArray(HITOKOTO_TYPE)) {
-            HITOKOTO_TYPE.forEach(function(type) {
-              url += "&c=" + type;
-            });
-          } else {
-            // 向后兼容：如果是字符串，直接添加
-            url += "&c=" + HITOKOTO_TYPE;
-          }
+          // 标准化为数组，支持向后兼容
+          const types = Array.isArray(HITOKOTO_TYPE) ? HITOKOTO_TYPE : [HITOKOTO_TYPE];
+          types.forEach(function(type) {
+            url += "&c=" + encodeURIComponent(type);
+          });
           xhr.open("GET", url, false);
           xhr.send();
           if (xhr.status != 200) {
