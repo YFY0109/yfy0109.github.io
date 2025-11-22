@@ -1,6 +1,6 @@
 const API_NODE = "https://hitokoto.mayx.eu.org/"
 //a->动画;b->漫画;c->游戏;d->文学;e->原创;f->来自网络;g->其他;h->影视;i->诗词;j->网易云;k->哲学;l->抖机灵
-const HITOKOTO_TYPE = "a"
+const HITOKOTO_TYPE = ["a"] // 支持多个类型，例如 ["a", "b", "c"]
 const ENABLE_FROM = false // 控制是否显示来源(from)和作者(from_who)
 
 parcelRequire = (function (e, r, t, n) {
@@ -1872,7 +1872,13 @@ parcelRequire = (function (e, r, t, n) {
 
         function change_slogan() {
           const xhr = new XMLHttpRequest();
-          const url = API_NODE+"?encode=json&c="+HITOKOTO_TYPE;
+          // 动态构造URL，支持多个c参数
+          let url = API_NODE + "?encode=json";
+          // 标准化为数组，支持向后兼容
+          const types = Array.isArray(HITOKOTO_TYPE) ? HITOKOTO_TYPE : [HITOKOTO_TYPE];
+          types.forEach(function(type) {
+            url += "&c=" + encodeURIComponent(type);
+          });
           xhr.open("GET", url, false);
           xhr.send();
           if (xhr.status != 200) {
