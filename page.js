@@ -1,7 +1,11 @@
 const API_NODE = "https://hitokoto.mayx.eu.org/"
-//a->动画;b->漫画;c->游戏;d->文学;e->原创;f->来自网络;g->其他;h->影视;i->诗词;j->网易云;k->哲学;l->抖机灵
+const TYPE_MAPPING = {"a":"动画","b":"漫画","c":"游戏","d":"文学","e":"原创","f":"来自网络","g":"其他","h":"影视","i":"诗词","j":"网易云","k":"哲学","l":"抖机灵"}
 const HITOKOTO_TYPE = ["a"] // 支持多个类型，例如 ["a", "b", "c"]
 const ENABLE_FROM = false // 控制是否显示来源(from)和作者(from_who)
+
+console.log("当前使用的API端点为：" + API_NODE)
+console.log("当前选择的类型为" + HITOKOTO_TYPE.map(item => TYPE_MAPPING[item] + "(" + item + ")").join("、"));
+console.log("当前是否显示来源：" + ENABLE_FROM ? "是" : "否")
 
 parcelRequire = (function (e, r, t, n) {
   var i,
@@ -1879,6 +1883,7 @@ parcelRequire = (function (e, r, t, n) {
           types.forEach(function(type) {
             url += "&c=" + encodeURIComponent(type);
           });
+          console.log("即将获取一言，URL：" + url)
           xhr.open("GET", url, false);
           xhr.send();
           if (xhr.status != 200) {
