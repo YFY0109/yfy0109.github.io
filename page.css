@@ -404,6 +404,12 @@ ul.skill li .progress div {
   display: inline-block;
   width: 100px;
 }
+.find .links .item .darkmark-text {
+  color: #fff;
+}
+.find .links .item:hover .darkmark-text {
+  color: #000;
+}
 .find .links .col-3 .item {
   width: 30.93%;
   margin: 10px 1.2%;
